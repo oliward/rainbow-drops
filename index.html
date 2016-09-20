@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>Drops experiment</title>
+		
+		<style>
+			html, body {
+				height: 100%;
+				margin: 0;
+				position: relative;
+				cursor: pointer;
+			}
+
+			div {
+				width: 0;
+				height: 0;
+				position: fixed;
+			}
+
+			span{
+				border: 4px solid #fff;
+				border-radius: 100%;
+				position: relative;
+				top: -50%;
+				left: -50%;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script>
+		jQuery(document).ready(function($){
+			var colors = [
+							'#FBB735',
+							'#E98931',
+							'#EB403B',
+							'#B32E37',
+							'#6C2A6A',
+							'#5C4399',
+							'#274389',
+							'#1F5EA8',
+							'#227FB0',
+							'#2AB0C5',
+							'#39C0B3',
+						];
+
+			var color_index = 0;
+
+			$('body').on('click',function(e){
+				if (color_index > colors.length){
+					color_index = 0;
+				}
+
+				var element_id = 'id'+Math.floor(Math.random()*1000000);
+				var color = colors[color_index];
+
+				$('body').append('<div id="'+element_id+'"><span></span></div>');
+
+				$('#'+element_id).css('left', e.pageX);
+				$('#'+element_id).css('top', e.pageY);
+				$('#'+element_id+' span').css('background', color);
+
+				$('#'+element_id+' span').animate({
+					height: 4000,
+					width: 4000,
+					left: -2000,
+					top: -2000,
+				}, 4000, function() {
+					// Animation complete.
+					$('body').css('background', color);
+					$('#'+element_id).remove();
+				});
+				color_index++;
+			});
+		});
+		</script>
+	</body>
+</html>
